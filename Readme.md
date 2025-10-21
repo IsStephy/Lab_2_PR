@@ -88,35 +88,35 @@ The programs that are responsible for the counter are: [multithreaded_server\.py
 
 For this part I implemented a program that test how the program work.
 To start the program I need to open  comand line in the working directory and write this ```python test_concurent.py --url http://192.168.1.6:8080/subdir/ --test all```
-![run test](photos\run_test.png)
+![run test](photos/run_test.png)
 *Figure12: Run test*
 
 The results will be the following:
-![rate_limit](photos\rate_limit.png)
+![rate_limit](photos/rate_limit.png)
 *Figure 13: Rate Limit Results*
 
-![race_condition](photos\race_condition.png)
+![race_condition](photos/race_condition.png)
 *Figure 14: Race condition Results*
 
 The last is spam results:
 
-![spam](photos\spam.png)
+![spam](photos/spam.png)
 *Figure 15: Spam Results*
 
 Now wee see that in the subdir were made soveral requestes
 
-![subdir_before](photos\subdir_before.png)
+![subdir_before](photos/subdir_before.png)
 *Figure 16: Subdir before test*
 
-![spamsubdir_after](photos\subdir_after_test.png)
+![spamsubdir_after](photos/subdir_after_test.png)
 *Figure 17: Subdir after test*
 
 We see that the counter was changed in the main too.
 
-![main_before](photos\main_before_test.png)
+![main_before](photos/main_before_test.png)
 *Figure 18: Subdir after test*
 
-![main_after](photos\main_after_test.png)
+![main_after](photos/main_after_test.png)
 *Figure 19: Subdir after test*
 
 
@@ -124,32 +124,32 @@ We see that the counter was changed in the main too.
 
 For this part I implemented a program that test how the program work.
 To start the program I need to open  comand line in the working directory and write this ```python test_concurent.py --url http://192.168.1.6:8082/subdir/ --test all```
-![run test](photos\run_8082.png)
+![run test](photos/run_8082.png)
 *Figure 20: Run test*
 
 The results will be the following:
-![rate_limit](photos\rate_limit_no_lock.png)
+![rate_limit](photos/rate_limit_no_lock.png)
 *Figure 21: Rate Limit without lock Results*
 
-![race_condition](photos\race_on_lock.png)
+![race_condition](photos/race_on_lock.png)
 *Figure 22: Race condition without lock Results*
 
 The last is spam results:
 
-![spam](photos\spam_no_lock.png)
+![spam](photos/spam_no_lock.png)
 *Figure 23: Spam without lock Results*
 
 Now wee see that in the subdir were made soveral requestes
 
-![subdir_before](photos\subdir_before.png)
+![subdir_before](photos/subdir_before.png)
 *Figure 24: Subdir before test*
 
-![spamsubdir_after](photos\subdir_after_test.png)
+![spamsubdir_after](photos/subdir_after_test.png)
 *Figure 25: Subdir after test*
 
 We see that the counter was changed in the main too.
 
-![main_before](photos\main_before_test.png)
+![main_before](photos/main_before_test.png)
 *Figure 26: Main before test without lock*
 
 ![main_after](photos/main_after_test_no_lock.png)

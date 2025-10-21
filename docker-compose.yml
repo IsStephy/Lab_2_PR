@@ -1,0 +1,82 @@
+services:
+  # Main multithreaded server (default)
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_server
+    command: ["python", "multithreaded_server.py", "content"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./content:/app/content
+    networks:
+      - lab_network
+
+  # Single-threaded server for comparison
+  server-st:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_server_st
+    command: ["python", "server.py", "content"]
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./content:/app/content
+    networks:
+      - lab_network
+    profiles:
+      - comparison
+
+  # Multithreaded server WITHOUT locks
+  server-no-lock:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_server_no_lock
+    command: ["python", "server_multithreaded_no_lock.py", "content"]
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./content:/app/content
+    networks:
+      - lab_network
+    profiles:
+      - race-condition
+
+  # Multithreaded server with delay
+  server-delay:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_server_delay
+    command: ["python", "multithreaded_server.py", "content", "--delay"]
+    ports:
+      - "8083:8080"
+    volumes:
+      - ./content:/app/content
+    networks:
+      - lab_network
+    profiles:
+      - performance
+
+  # Client for testing
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pdf_client
+    command: ["sleep", "infinity"]
+    volumes:
+      - ./downloads:/app/downloads
+      - ./client.py:/app/client.py
+      - ./test_concurent.py:/app/test_concurent.py
+    depends_on:
+      - server
+    networks:
+      - lab_network
+
+networks:
+  lab_network:
+    driver: bridge

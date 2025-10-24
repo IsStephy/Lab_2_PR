@@ -1,11 +1,19 @@
 # Laboratory 2 Report: Concurrent HTTP serve
 
-## 1. Directory
+##  Directory
 
 The directory consists of three files  [multithreaded_server\.py](https://github.com/IsStephy/Lab_2_PR/blob/main/multithreaded_server.py) that respond for the server part: manage all requests, make the responses using lock. The second part is a [server_multithreaded_no_lock\.py](https://github.com/IsStephy/Lab_2_PR/blob/main/server_multithreaded_no_lock.py) that make the same as the first part but implement and manage the requeste without lock. The last part is [test_concurent\.py](https://github.com/IsStephy/Lab_2_PR/blob/main/test_concurent.py) that have the function to test this 2 parts 
 ### [Source Directory](https://github.com/IsStephy/Lab_2_PR)
 
-## 2. Docker Compose & Dockerfile
+## Main Tasks: 
+- Make server multithreaded
+- Test concurrent request handling
+- Implement request counter
+- Demonstrate race condition
+- Implement rate limiting
+- Test rate limiting
+
+##  Docker Compose & Dockerfile
 
 The Docker Compose and Dockerfile configurations used in this laboratory work are designed to create a clear, modular, and efficient containerized environment. The Dockerfile builds a lightweight Python 3.12 image, installs the required dependencies, and copies all server and client scripts into the /app directory. The Docker Compose file defines multiple services, including different server versions (single-threaded, multithreaded, without locks, and with delay) and a client container for testing. Each server instance is mapped to a unique external port, ensuring that all variants can run simultaneously without conflicts. This setup provides flexibility for testing and comparing different concurrency implementations in a consistent and isolated environment.
 ### [Docker Compose](https://github.com/IsStephy/Lab_2_PR/blob/main/docker-compose.yml)
@@ -14,7 +22,7 @@ The Docker Compose and Dockerfile configurations used in this laboratory work ar
 
 ---
 
-## 3. Starting the Container
+##  Starting the Container
 
 The container is started with the command: ```docker compose up --build -d```
 
@@ -23,21 +31,21 @@ The container is started with the command: ```docker compose up --build -d```
 
 ---
 
-## 4. Running the Server
+##  Running the Server
 
 The command used to run the server in the docker-copmose is  ```python server.py <served_directory>```. The current docker-compose setup automatically executes the command when the container is created:
 
 ![Server Start](photos/run.png)  
 *Figure 2: Running the server automatically when the container starts.*
 
-## 5. Contents of the Directory
+##  Contents of the Directory
 
 Accessing the server’s main endpoint displays all files and folders within the served directory, arranged in alphabetical order, as illustrated in the next image:
 
 ![Directory](photos/main.png)
 *Figure 3: Directory contents displayed by the server.*
 
-## 5. Accessing 4 types of files 
+##  Accessing 4 types of files 
 
 ### 404 Error
 This screenshot shows the server’s response when a request is made for a non-existent file. The server appropriately returns a 404 Not Found error.
@@ -154,6 +162,23 @@ We see that the counter was changed in the main too.
 
 ![main_after](photos/main_after_test_no_lock.png)
 *Figure 27: Main after test without lock*
+
+
+## Test the code from the lab 1 
+For this part I implemented a program that test how the program work.
+To start the program I need to open  comand line in the working directory and write this ```python test_concurent.py --url http://192.168.1.6:8081/subdir/ --test all```
+![run test](photos/run_8081.png)
+*Figure 28: Run test*
+
+The results will be the following:
+![rate_limit](photos/rate_1.png)
+*Figure 29: Rate Limit first lab*
+
+![race_condition](photos/concurent_init.png)
+*Figure 30: Race condition first lab*
+
+![spam](photos/spam_1.png)
+*Figure 31: Spam without lock Results*
 
 ## Conclusion
 In conclusion, this laboratory work demonstrated the use of Docker and Docker Compose to create an isolated, flexible environment for testing and comparing different server implementations. The project focused on implementing and analyzing multithreading, allowing the server to handle multiple client requests concurrently and improving overall performance and responsiveness. Through this setup, it was also possible to examine the behavior of race conditions. The containerized environment ensured consistent execution across all tests, simplifying deployment and reducing configuration complexity. Overall, the lab provided valuable hands-on experience with containerization, concurrency, and multithreaded server design.
